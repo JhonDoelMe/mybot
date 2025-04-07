@@ -1,12 +1,12 @@
 from telegram import Update
-from telegram.ext import CommandHandler, CallbackContext
+from telegram.ext import CommandHandler, ContextTypes
 from utils.api_clients import get_latest_news
 
-def news(update: Update, context: CallbackContext):
+async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     articles = get_latest_news()
     
     if not articles:
-        update.message.reply_text("Не удалось получить новости. Попробуйте позже.")
+        await update.message.reply_text("Не удалось получить новости. Попробуйте позже.")
         return
     
     response = "Последние новости:\n"
@@ -15,6 +15,6 @@ def news(update: Update, context: CallbackContext):
         description = article.get("description", "Нет описания")
         response += f"{i}. {title}\n{description}\n\n"
     
-    update.message.reply_text(response)
+    await update.message.reply_text(response)
 
 news_handler = CommandHandler("news", news)

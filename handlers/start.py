@@ -1,9 +1,9 @@
 from telegram import Update
-from telegram.ext import CommandHandler, CallbackContext
+from telegram.ext import CommandHandler, ContextTypes
 from utils.keyboards import main_menu_keyboard
 
-def start(update: Update, context: CallbackContext):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = main_menu_keyboard()
-    update.message.reply_text("Привет! Выбери нужный раздел:", reply_markup=keyboard)
+    await update.message.reply_text("Привет! Выбери нужный раздел:", reply_markup=keyboard)
 
 start_handler = CommandHandler('start', start)
