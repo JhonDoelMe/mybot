@@ -3,12 +3,8 @@ from telegram.ext import CommandHandler, ContextTypes
 from utils.api_clients import get_currency_rate
 
 async def currency(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    args = context.args
-    if len(args) != 2:
-        await update.message.reply_text("Используйте команду в формате: /currency [базовая валюта] [целевая валюта]")
-        return
-    
-    base_currency, target_currency = args[0].upper(), args[1].upper()
+    base_currency = "USD"
+    target_currency = "UAH"
     rate = get_currency_rate(base_currency, target_currency)
     
     if rate is None:

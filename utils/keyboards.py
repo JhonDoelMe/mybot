@@ -1,8 +1,10 @@
-from telegram import ReplyKeyboardMarkup
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
 def main_menu_keyboard():
     keyboard = [
-        ["Погода", "Курс валют"],
-        ["Новости", "Воздушная тревога"]
+        [InlineKeyboardButton("Погода", callback_data="Погода"),
+         InlineKeyboardButton("Курс валют", callback_data="Курс валют")],
+        [InlineKeyboardButton("Новости", callback_data="Новости"),
+         InlineKeyboardButton("Воздушная тревога", callback_data="Воздушная тревога")]
     ]
-    return ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    return InlineKeyboardMarkup(keyboard)

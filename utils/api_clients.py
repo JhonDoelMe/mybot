@@ -6,6 +6,7 @@ NEWS_API_KEY = getenv("NEWS_API_KEY")
 AIR_RAID_API_KEY = getenv("AIR_RAID_API_KEY")
 
 NBU_API_URL = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json"
+AIR_RAID_API_URL = "https://api.alerts.in.ua/v1/alerts/active.json"
 
 def get_currency_rate(base_currency, target_currency):
     response = requests.get(NBU_API_URL)
@@ -39,8 +40,11 @@ def get_latest_news():
     return data.get("articles", [])
 
 def get_air_raid_status():
-    url = "https://api.alerts.in.ua/api/alerts/active.json"
+    url = f"{AIR_RAID_API_URL}?token={AIR_RAID_API_KEY}"
     response = requests.get(url)
+    if response.status_code != 200:
+        return None
+    
     data = response.json()
     if data.get("success"):
         return data.get("data", [])
