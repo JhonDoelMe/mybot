@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import CommandHandler, ContextTypes
-from utils.api_clients import get_air_0raid_status
+from utils.api_clients import get_air_raid_status
 
 async def air_raid(update: Update, context: ContextTypes.DEFAULT_TYPE):
     status = get_air_raid_status()
